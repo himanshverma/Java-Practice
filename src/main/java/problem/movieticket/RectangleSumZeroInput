@@ -26,7 +26,7 @@ public class RectangleSumZeroInput {
 				{ 2 ,-3  ,-5 , 2},
 				{-1 , -2  , 3 ,-4}
 		};*/
-		findZero(array, 4, 4);
+		findZero(array, row, col);
 		System.out.println(max);
 	}
 
