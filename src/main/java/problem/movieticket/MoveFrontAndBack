@@ -1,0 +1,34 @@
+
+public class MoveFrontAndBack {	
+
+	public static void main(String args[]) {
+
+		int array[] = new int[202];
+		int index = 0;
+		int moves = 0;
+		for (int i = -100; i < 100; i++)
+			array[index++] = i;
+		System.out.println(findMoves(10,moves));
+	}
+
+	public static int findMoves(int desiredNumber, int moves) {
+		desiredNumber = desiredNumber<0? desiredNumber*-1:desiredNumber;
+		int totalDistance = 0;
+		while (totalDistance < desiredNumber)
+			totalDistance = totalDistance + ++moves;
+		if (totalDistance - desiredNumber == 0)
+			return moves;
+		totalDistance = totalDistance - moves--;
+		int forwDistnace =  desiredNumber - totalDistance;
+		int backwDistance = totalDistance + moves + 1 - desiredNumber;
+		
+		if (backwDistance*2> findMoves(forwDistnace,0))
+			return findMoves(forwDistnace,0)+moves;
+		else
+			return	backwDistance*2+moves;
+		/*return ((desiredNumber - totalDistance) <= (totalDistance + moves + 1 - desiredNumber) ? ((desiredNumber - totalDistance) * 2)
+				+ moves
+				: (totalDistance + ++moves - desiredNumber) * 2 + moves);*/
+	}
+
+}
