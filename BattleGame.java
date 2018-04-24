@@ -6,6 +6,8 @@ import java.util.Scanner;
 import com.thought.works.BattleShip.Dimension;
 import com.thought.works.BattleShip.ShipType;
 
+
+
 public class BattleGame {
 
 	public static void main(String[] args) {
@@ -37,10 +39,35 @@ public class BattleGame {
 					player1.addShips(key1, ShipType.valueOf(shipType));
 					player2.addShips(key2, ShipType.valueOf(shipType));
 				}
-			}
-			
+			}			
 		}
-
+		scanner.nextLine();
+		player1.addMissileSequence(scanner.nextLine());
+		player2.addMissileSequence(scanner.nextLine());
+		fight(player1,player2);
 	}
 
+	private static void fight(BattleShip player1, BattleShip player2) {
+		
+		while((!player1.missileSequence.isEmpty() || !player2.missileSequence.isEmpty()) && player1.shipsWithPower.size()!=0 && player2.shipsWithPower.size()!=0){
+			
+			while( player1.missileSequence.size()!=0 &&player2.fire(player1.missileSequence.poll()));
+			while( player2 .missileSequence.size()!=0 &&player1.fire(player2.missileSequence.poll()));
+		}
+		if( player1.shipsWithPower.size()==0)
+			System.out.println("p1 wins");
+		if( player2.shipsWithPower.size()==0)
+			System.out.println("p2 wins");
+	}
+	
+
 }
+
+/*
+5 E
+2
+Q 1 1 A1 B2
+P 2 1 D4 C3
+A1 B2 B2 B3
+A1 B2 B3 A1 D1 E1 D4 D4 D5 D5
+*/
