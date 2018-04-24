@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 public class BattleShip {
 
+	
+
 	enum ShipType {
 		P("P"), Q("Q");
 		ShipType(String type) {
@@ -12,8 +14,16 @@ public class BattleShip {
 		String type;
 	};
 	
+	Queue<String>missileSequence ;
 
 	HashMap<String, Integer> shipsWithPower = new HashMap<String, Integer>();
+	
+	public void addMissileSequence(String location)
+	{
+		missileSequence = (Queue<String>)new  LinkedList( (Arrays.asList(location.split(" "))));
+		System.out.println(missileSequence);
+
+	}
 
 	public void addShips(String location, ShipType type) {
 		if (type.equals(ShipType.P))
@@ -46,4 +56,5 @@ public class BattleShip {
 
 		char height;
 	};
+
 }
