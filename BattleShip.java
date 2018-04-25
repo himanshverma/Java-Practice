@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 public class BattleShip {
 
-	
 
 	enum ShipType {
 		P("P"), Q("Q");
@@ -13,36 +12,66 @@ public class BattleShip {
 		}
 		String type;
 	};
+	private String playerName;
+	private Queue<String>missileSequence;
+	private HashMap<String, Integer> shipsLocation = new HashMap<String, Integer>();
+	private int targetLeft;
 	
-	Queue<String>missileSequence ;
+	public Queue<String> getMissileSequence() {
+		return missileSequence;
+	}
 
-	HashMap<String, Integer> shipsWithPower = new HashMap<String, Integer>();
+	public HashMap<String, Integer> getShipsLocation() {
+		return shipsLocation;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
+
+	public BattleShip(String playerName) {
+		super();
+		this.playerName = playerName;
+	}
+
 	
 	public void addMissileSequence(String location)
 	{
 		missileSequence = (Queue<String>)new  LinkedList( (Arrays.asList(location.split(" "))));
-		System.out.println(missileSequence);
 
+	}
+	public int missileCount()
+	{
+		return missileSequence.size();
+	}
+	
+	public String nextMissile()
+	{
+		return missileSequence.poll();
 	}
 
 	public void addShips(String location, ShipType type) {
 		if (type.equals(ShipType.P))
-			shipsWithPower.put(location, 1);
+			shipsLocation.put(location, 1);
 		if (type.equals(ShipType.Q))
-			shipsWithPower.put(location, 2);
+			shipsLocation.put(location, 2);
 
 	}
 
-	public boolean fire(String location) {
-		if (shipsWithPower.containsKey(location)) {
-			if (shipsWithPower.get(location) > 1)
-				shipsWithPower.put(location, 1);
+	public String fire(String location) {
+		if (shipsLocation.containsKey(location)) {
+			if (shipsLocation.get(location) > 1)
+				shipsLocation.put(location, 1);
 			else
-				shipsWithPower.remove(location);
+				shipsLocation.remove(location);
 
-			return true;
+			return "hit";
 		}
-		return false;
+		return "miss";
 	}
 
 	static class Dimension {
